@@ -39,7 +39,6 @@ if __name__ == "__main__":
     print(rsp_37.url)
 
 
-g
 
 
 
