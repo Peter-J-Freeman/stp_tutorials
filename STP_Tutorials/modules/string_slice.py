@@ -1,9 +1,11 @@
 import logging
+from pathlib import Path
 
-# Use logging rather then print statements to track workflows and record exceptions
-logging.basicConfig(level=logging.ERROR,  # DEBUG, INFO, WARN, ERROR
+# Use logging rather than print statements to track workflows and record exceptions.py
+current_directory = str(Path(__file__).resolve().parent)
+logging.basicConfig(level=logging.DEBUG,  # DEBUG, INFO, WARN, ERROR
                     format="%(asctime)s [%(levelname)s] %(message)s",
-                    handlers=[logging.FileHandler('string_slice.log'),
+                    handlers=[logging.FileHandler(f"{current_directory}/logs/string_slice.log"),
                               logging.StreamHandler()],)
 
 # logging.info("Find sqrt of {} starting with guess {}".format(x, guess))

@@ -1,3 +1,9 @@
-pytest==7.3.1
 biopython==1.81
+certifi @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_5d968ni_yn/croot/certifi_1671487774636/work/certifi
+exceptiongroup==1.1.1
+iniconfig==2.0.0
 numpy==1.24.2
+packaging==23.1
+pluggy==1.0.0
+pytest==7.3.1
+tomli==2.0.1

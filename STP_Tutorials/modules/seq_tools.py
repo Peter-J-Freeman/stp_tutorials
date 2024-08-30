@@ -3,15 +3,17 @@ Module that contains an object for manipulating DNA strings
 """
 
 import logging
+from pathlib import Path
 
-# Use logging rather than print statements to track workflows and record exceptions
-logging.basicConfig(level=logging.INFO,  # DEBUG, INFO, WARN, ERROR
+# Use logging rather than print statements to track workflows and record exceptions.py
+current_directory = str(Path(__file__).resolve().parent)
+logging.basicConfig(level=logging.DEBUG,  # DEBUG, INFO, WARN, ERROR
                     format="%(asctime)s [%(levelname)s] %(message)s",
-                    handlers=[logging.FileHandler('transribe_n_translate.log'),
+                    handlers=[logging.FileHandler(f"{current_directory}/logs/transribe_n_translate.log"),
                               logging.StreamHandler()],)
 
 
-# Custom exceptions
+# Custom exceptions.py
 class SequenceError(Exception):
     pass
 
@@ -60,13 +62,6 @@ class SequenceTools:
         complement = "".join([self.base_complement[base] for base in reverse_bases])
 
         return complement
-
-
-
-
-
-
-
 
 
 if __name__ == '__main__':

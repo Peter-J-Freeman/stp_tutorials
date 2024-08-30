@@ -1,9 +1,11 @@
 import logging
+from pathlib import Path
 
-# Use logging rather then print statements to track workflows and record exceptions
+# Use logging rather than print statements to track workflows and record exceptions.py
+current_directory = str(Path(__file__).resolve().parent)
 logging.basicConfig(level=logging.DEBUG,  # DEBUG, INFO, WARN, ERROR
                     format="%(asctime)s [%(levelname)s] %(message)s",
-                    handlers=[logging.FileHandler('chunking.log'),
+                    handlers=[logging.FileHandler(f"{current_directory}/logs/genbank_style.log"),
                               logging.StreamHandler()],)
 
 
@@ -18,7 +20,7 @@ def chunk_string(query_sequence, chuk_by, num_blocks):
     logging.info("Chunk {} into rows of {} blocks of {}".format(query_sequence, str(num_blocks), str(chuk_by)))
 
     query_sequence = "".join(query_sequence.split()).lower()  # This line splits the string at all whitespace, joins it
-                                                              # together again with no gaps and lower cases
+    # together again with no gaps and transforms to lower cases to match the requested output
 
     full_list = []
     inner_list = []
@@ -38,22 +40,23 @@ def chunk_string(query_sequence, chuk_by, num_blocks):
         counter = counter + 1
         row = " ".join(line)
         text_out += "{} {}{}".format(str(counter), row, "\n")
+        counter = counter + (len("".join(row.split()))-1)
     return text_out
 
 
 if __name__ == "__main__":
     string = """\
-GCTGAGACTTCCTGGACGGGGGACAGGCTGTGGGGTTTCTCAGATAACTGGGCCCCTGCGCTCAGGAGGC
-CTTCACCCTCTGCTCTGGGTAAAGTTCATTGGAACAGAAAGAAATGGATTTATCTGCTCTTCGCGTTGAA
-GAAGTACAAAATGTCATTAATGCTATGCAGAAAATCTTAGAGTGTCCCATCTGTCTGGAGTTGATCAAGG
-AACCTGTCTCCACAAAGTGTGACCACATATTTTGCAAATTTTGCATGCTGAAACTTCTCAACCAGAAGAA
-AGGGCCTTCACAGTGTCCTTTATGTAAGAATGATATAACCAAAAGGAGCCTACAAGAAAGTACGAGATTT
-AGTCAACTTGTTGAAGAGCTATTGAAAATCATTTGTGCTTTTCAGCTTGACACAGGTTTGGAGTATGCAA
-ACAGCTATAATTTTGCAAAAAAGGAAAATAACTCTCCTGAACATCTAAAAGATGAAGTTTCTATCATCCA
-AAGTATGGGCTACAGAAACCGTGCCAAAAGACTTCTACAGAGTGAACCCGAAAATCCTTCCTTGCAGGAA
-ACCAGTCTCAGTGTCCAACTCTCTAACCTTGGAACTGTGAGAACTCTGAGGACAAAGCAGCGGATACAAC
-CTCAAAAGACGTCTGTCTACATTGAATTGGGATCTGATTCTTCTGAAGATACCGTTAATAAGGCAACTTA
-TTGCAGTGTGGGAGATCAAGTAAATAAAAAAAAAAAA"""
+    GCTGAGACTTCCTGGACGGGGGACAGGCTGTGGGGTTTCTCAGATAACTGGGCCCCTGCGCTCAGGAGGC
+    CTTCACCCTCTGCTCTGGGTAAAGTTCATTGGAACAGAAAGAAATGGATTTATCTGCTCTTCGCGTTGAA
+    GAAGTACAAAATGTCATTAATGCTATGCAGAAAATCTTAGAGTGTCCCATCTGTCTGGAGTTGATCAAGG
+    AACCTGTCTCCACAAAGTGTGACCACATATTTTGCAAATTTTGCATGCTGAAACTTCTCAACCAGAAGAA
+    AGGGCCTTCACAGTGTCCTTTATGTAAGAATGATATAACCAAAAGGAGCCTACAAGAAAGTACGAGATTT
+    AGTCAACTTGTTGAAGAGCTATTGAAAATCATTTGTGCTTTTCAGCTTGACACAGGTTTGGAGTATGCAA
+    ACAGCTATAATTTTGCAAAAAAGGAAAATAACTCTCCTGAACATCTAAAAGATGAAGTTTCTATCATCCA
+    AAGTATGGGCTACAGAAACCGTGCCAAAAGACTTCTACAGAGTGAACCCGAAAATCCTTCCTTGCAGGAA
+    ACCAGTCTCAGTGTCCAACTCTCTAACCTTGGAACTGTGAGAACTCTGAGGACAAAGCAGCGGATACAAC
+    CTCAAAAGACGTCTGTCTACATTGAATTGGGATCTGATTCTTCTGAAGATACCGTTAATAAGGCAACTTA
+    TTGCAGTGTGGGAGATCAAGTAAATAAAAAAAAAAAA"""
     chunk_length = 10
     block_length = 6
     print(chunk_string(string, chunk_length, block_length))
