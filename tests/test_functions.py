@@ -2,7 +2,7 @@ from pathlib import Path
 import sys
 import pytest
 sys.path.append(str(Path(__file__).resolve().parent.parent))
-from STP_Tutorials.modules import string_slice, sum_odd_integers, exercise_1_4, exercise_1_5, exercise_2_1, exceptions
+from examples import string_slice, sum_odd_integers, exercise_1_4, exercise_1_5, exercise_2_1, exceptions
 
 
 def test_string_slice():
