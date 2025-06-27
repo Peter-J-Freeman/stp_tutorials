@@ -44,7 +44,7 @@ def is_dna(dna_sequence):
 
 def transcribe(dna_sequence, start_position=1):
     """
-    Function that translated a DNA string from a designated start position
+    Function that translates a DNA string from a designated start position
     :param dna_sequence: (str) query sequence
     :param start_position: (int) the position we transcribe from
     :return:
