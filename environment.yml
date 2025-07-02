@@ -1,6 +1,7 @@
-name: stp_tutorials
+name: seq_tk
 channels:
   - conda-forge
   - bioconda
 dependencies:
-  - python==3.10.10
+  - python==3.12.8
+  - pip
