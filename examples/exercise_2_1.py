@@ -17,7 +17,7 @@ logging.basicConfig(
 
 def chunk_string(query_sequence, chuk_by, num_blocks):
     """
-    Formats a DNA sequence into GenBank-style lines:
+    Formats a DNA sequence into a list of chunked sequences:
     Each line contains `num_blocks` blocks of length `chuk_by`, with a counter at the start.
 
     Parameters:
@@ -26,7 +26,7 @@ def chunk_string(query_sequence, chuk_by, num_blocks):
     num_blocks (int): Number of blocks per line
 
     Returns:
-    str: Formatted string in GenBank-style
+    list: A list of lines formatted
     """
     logging.info("Chunking sequence into rows of {} blocks of {}".format(num_blocks, chuk_by))
 
@@ -50,10 +50,14 @@ def chunk_string(query_sequence, chuk_by, num_blocks):
     if inner_list:
         full_list.append(inner_list)
 
+    return full_list
+
+
+def create_genbank_style(chunk_list):
     counter = 0       # Keeps track of total base count, used for the GenBank-style line prefix
     text_out = ""     # Final formatted output string
 
-    for line in full_list:
+    for line in chunk_list:
         counter += 1  # Line prefix is 1-based index of first base, mimicking GenBank format
         row = " ".join(line)  # Join blocks with spaces
         text_out += "{}\t{}{}".format(str(counter), row, "\n")
@@ -85,4 +89,5 @@ if __name__ == "__main__":
     block_length = 6    # Number of blocks per line (e.g., 6 blocks of 10 bases = 60 bases per line)
 
     # Print the formatted sequence
-    print(chunk_string(string, chunk_length, block_length))
+    chunk_list = (chunk_string(string, chunk_length, block_length))
+    print(create_genbank_style(chunk_list))

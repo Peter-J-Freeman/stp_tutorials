@@ -46,7 +46,7 @@ def chunk_string(query_sequence, chuk_by):
         query_sequence = query_sequence[chuk_by:]
 
     # Join the chunks with spaces and return the result
-    return " ".join(my_list)
+    return my_list
 
 
 # Run this block if the script is executed directly (not imported as a module)
@@ -56,4 +56,5 @@ if __name__ == "__main__":
     # Desired chunk length
     chunk_length = 5
     # Output the chunked string
-    print(chunk_string(string, chunk_length))
+    print(" ".join(chunk_string(string, chunk_length)))
+
